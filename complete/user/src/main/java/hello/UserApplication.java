@@ -26,8 +26,8 @@ public class UserApplication {
 		this.lbFunction = lbFunction;
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(UserApplication.class, args);
+	public static void main(String[] a) {
+		SpringApplication.run(UserApplication.class, a);
 	}
 
 	@RequestMapping("/hi")
@@ -38,12 +38,12 @@ public class UserApplication {
 	}
 
 	@RequestMapping("/hello")
-	public Mono<String> hello(@RequestParam(value = "name", defaultValue = "John") String name) {
+	public Mono<String> hello(@RequestParam(value = "name", defaultValue = "John") String nm) {
 		return WebClient.builder()
 				.filter(lbFunction)
 				.build().get().uri("http://say-hello/greeting")
 				.retrieve().bodyToMono(String.class)
-				.map(greeting -> String.format("%s, %s!", greeting, name));
+				.map(greeting -> String.format("%s, %s!", greeting, nm));
 	}
 }
 
