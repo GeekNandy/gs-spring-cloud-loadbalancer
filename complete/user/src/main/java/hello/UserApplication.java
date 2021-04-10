@@ -31,10 +31,10 @@ public class UserApplication {
 	}
 
 	@RequestMapping("/hi")
-	public Mono<String> hi(@RequestParam(value = "name", defaultValue = "Mary") String name) {
+	public Mono<String> hi(@RequestParam(value = "name", defaultValue = "Mary") String n) {
 		return loadBalancedWebClientBuilder.build().get().uri("http://say-hello/greeting")
 				.retrieve().bodyToMono(String.class)
-				.map(greeting -> String.format("%s, %s!", greeting, name));
+				.map(greeting -> String.format("%s, %s!", greeting, n));
 	}
 
 	@RequestMapping("/hello")
